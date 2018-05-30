@@ -1,0 +1,35 @@
+--- dyld-210.2.3/launch-cache/dsc_extractor.cpp  2012-05-21 02:35:15.000000000 -0400
++++ dyld-210.2.3/launch-cache/dsc_extractor.cpp    2013-07-26 16:05:03.000000000 -0400
+@@ -37,6 +37,7 @@
+#include <mach-o/arch.h>
+#include <mach-o/loader.h>
+#include <Availability.h>
++#include <dlfcn.h>
+
+#define NO_ULEB
+#include "Architectures.hpp"
+@@ -456,7 +457,7 @@
+}
+
+
+-#if 1
++/* #if 1 */
+
+typedef int (*extractor_proc)(const char* shared_cache_file_path, const char* extraction_root_path,
+void (^progress)(unsigned current, unsigned total));
+@@ -468,7 +487,7 @@
+return 1;
+}
+
+-    void* handle = dlopen("/Developer/Platforms/iPhoneOS.platform/usr/lib/dsc_extractor.bundle", RTLD_LAZY);
++    void* handle = dlopen("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/usr/lib/dsc_extractor.bundle", RTLD_LAZY);
+if ( handle == NULL ) {
+fprintf(stderr, "dsc_extractor.bundle could not be loaded\n");
+return 1;
+@@ -484,7 +485,7 @@
+fprintf(stderr, "dyld_shared_cache_extract_dylibs_progress() => %d\n", result);
+return 0;
+}
+-#endif
++/* #endif */
+
